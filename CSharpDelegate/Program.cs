@@ -4,7 +4,47 @@ namespace CSharpDelegate
 {
     class Program
     {
+        static int Square(int input) => input * input;
         static void Main(string[] args)
+        {
+            var calculator = new Calculator();
+
+            var response = calculator.Execute(Square, 5);
+
+            Console.WriteLine($"Response: {response}");
+ 
+
+            calculator.CalculateTriggered += (obj, eventARgs) => Console.WriteLine(eventARgs.Name);
+
+            calculator.RaiseEvent("Test Name");
+     
+
+            Console.ReadKey();
+        }
+
+        //For Action delegate
+        private static int resultAction;
+        private static void AddNumbers(int param1, int param2)
+        {
+            resultAction = param1 + param2;
+        }
+
+        //For Predicate delegate
+        private static bool IsApple(string modelName)
+        {
+            if (modelName == "I Phone X")
+                return true;
+            else
+                return false;
+        }
+
+        //For Func delegate
+        private static int SumNumber(int param1, int param2)
+        {
+            return param1 + param2;
+        }
+
+        private static void ActionFuncPredicate()
         {
             //Action delegate
             Action<int, int> Addition = AddNumbers;
@@ -70,28 +110,6 @@ namespace CSharpDelegate
 
 
             Console.ReadKey();
-        }
-
-        //For Action delegate
-        private static int resultAction;
-        private static void AddNumbers(int param1, int param2)
-        {
-            resultAction = param1 + param2;
-        }
-
-        //For Predicate delegate
-        private static bool IsApple(string modelName)
-        {
-            if (modelName == "I Phone X")
-                return true;
-            else
-                return false;
-        }
-
-        //For Func delegate
-        private static int SumNumber(int param1, int param2)
-        {
-            return param1 + param2;
         }
     }
 }
